@@ -1,0 +1,6 @@
+<div style="width: 960px; height: 300px; margin: 0 auto; background: #696969; opacity: .5; text-align: center;">
+  <button (click)="btnClick()" style="margin-top: 15px; padding: 10px; background: #fff">Click me!</button>
+  <ul>
+    <li *ngFor="let message of messages" style="color: #fff; list-style-type: none;">{{ message.message }} {{ message.date }}</li>
+  </ul>
+</div>
