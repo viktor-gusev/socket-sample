@@ -19,11 +19,17 @@ let api = new Api(config, app);
 io.on('connection', (socket) => {
   console.log("New connection");
   // when the client emits 'new message', this listens and executes
-  socket.on('new message', (data) => {
+  socket.on('add-message', (data) => {
+    socket.emit('new message', {
+      username: socket.username,
+      message: data,
+      date: Date.now()
+    });
     // we tell the client to execute 'new message'
     socket.broadcast.emit('new message', {
       username: socket.username,
-      message: data
+      message: data,
+      date: Date.now()
     });
   });
 });
