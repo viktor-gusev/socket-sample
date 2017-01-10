@@ -12,22 +12,10 @@ const Api = require('./Api');
 const io = require('socket.io')(server);
 
 
-let api = new Api(config, app);
-
-//app.use(express.static(__dirname + '/public'));
-
-io.on('connection', (socket) => {
-  console.log("New connection");
-  // when the client emits 'new message', this listens and executes
-  socket.on('new message', (data) => {
-    // we tell the client to execute 'new message'
-    socket.broadcast.emit('new message', {
-      username: socket.username,
-      message: data
-    });
-  });
-});
+app.use(express.static(__dirname + '/client'));
 
 server.listen(config.PORT, ()=> {
   console.log('Running on http://localhost:' + config.PORT);
 });
+
+let api = new Api(config, server, io);
