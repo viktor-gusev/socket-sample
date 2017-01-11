@@ -21,6 +21,20 @@ module.exports = class Api {
           socket.emit(result.event, result.data)
       });
     });
+
+    socket.on('add-message', (data) => {
+      socket.emit('new message', {
+        username: socket.username,
+        message: data,
+        date: Date.now()
+      });
+      socket.broadcast.emit('new message', {
+        username: socket.username,
+        message: data,
+        date: Date.now()
+      });
+    });
+
   }
 
   check(data) {
